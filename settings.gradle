@@ -2,17 +2,17 @@
 include ':SPD-classes'
 include ':core'
 
-//platform modules
-include ':android'
-include ':ios'
-include ':desktop'
+//platform modules - all disabled except HTML
+//include ':android'
+//include ':ios'
+//include ':desktop'
 include ':html'
 
 //service modules
 include ':services'
     //updates
-    include ':services:updates:debugUpdates'
-    include ':services:updates:githubUpdates'
+//    include ':services:updates:debugUpdates'
+//    include ':services:updates:githubUpdates'
     //news
-    include ':services:news:debugNews'
-    include ':services:news:shatteredNews'
+//    include ':services:news:debugNews'
+//    include ':services:news:shatteredNews'
