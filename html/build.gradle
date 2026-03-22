@@ -1,6 +1,6 @@
 apply plugin: 'java-library'
 apply plugin: 'war'
-apply plugin: 'org.wisepersist.gwt'
+apply plugin: 'org.docstr.gwt'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
@@ -12,33 +12,29 @@ gwt {
     maxHeapSize = '2G'
     minHeapSize = '256m'
 
-    src = files(file('src/main/java'))
-    modules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinition'
-    devModules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinitionSuperdev'
+    modules = ['com.shatteredpixel.shatteredpixeldungeon.GdxDefinition']
+
+    // Cross-project Java sources GWT needs to see as .java files (not just .class files)
+    extraSourceDirs = files(
+        project(':SPD-classes').sourceSets.main.java.srcDirs,
+        project(':core').sourceSets.main.java.srcDirs,
+        project(':services').sourceSets.main.java.srcDirs
+    )
 
     compiler {
         strict = true
-        disableCastChecking = true
     }
 
     superDev {
-        noServer = true
         port = 8080
         launcherDir = project.file('src/main/webapp')
-        sessionId = 'preview'
     }
 }
 
-task addSource {
-    doFirst {
-        gwt.src += files(project(':SPD-classes').sourceSets.main.java.srcDirs)
-        gwt.src += files(project(':core').sourceSets.main.java.srcDirs)
-        gwt.src += files(project(':services').sourceSets.main.java.srcDirs)
-    }
-}
-
-tasks.withType(JavaCompile) {
-    dependsOn addSource
+// Include the GWT-compiled output (build/gwt/war/) in the WAR alongside webapp content
+war.dependsOn 'gwtCompile'
+war {
+    from(gwt.war)
 }
 
 // Copy core assets into the webapp so the war can serve them

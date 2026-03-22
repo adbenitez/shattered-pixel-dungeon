@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.13.2'
-        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.28'
+        classpath 'org.docstr.gwt:org.docstr.gwt.gradle.plugin:2.2.9'
     }
 }
 
