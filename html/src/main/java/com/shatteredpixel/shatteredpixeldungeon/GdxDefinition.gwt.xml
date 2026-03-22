@@ -11,7 +11,7 @@
     <inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
     <!-- libGDX controllers GWT backend -->
-    <inherits name='com.badlogicgames.controllers.Controllers' />
+    <inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
 
     <!-- Watabou engine classes (SPD-classes module) -->
     <inherits name='com.watabou.SPDClasses' />
