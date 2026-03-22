@@ -527,7 +527,7 @@ public class Notes {
 				if (type == CustomType.ITEM){
 					//prior to v3.1 specific item notes and item type notes were the same
 					//we assume notes are for a specific item if they're for an equipment
-					if (EquipableItem.class.isAssignableFrom(itemClass)){
+					if (Reflection.isAssignableFrom(EquipableItem.class, itemClass)){
 						type = CustomType.SPECIFIC_ITEM;
 					} else {
 						type = CustomType.ITEM_TYPE;
@@ -652,7 +652,7 @@ public class Notes {
 	public static <T extends Record> ArrayList<T> getRecords( Class<T> recordType ){
 		ArrayList<T> filtered = new ArrayList<>();
 		for (Record rec : records){
-			if (recordType.isInstance(rec)){
+			if (Reflection.isInstance(recordType, rec)){
 				filtered.add((T)rec);
 			}
 		}

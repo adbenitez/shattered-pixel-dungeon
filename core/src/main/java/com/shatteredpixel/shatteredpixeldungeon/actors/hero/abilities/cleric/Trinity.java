@@ -359,7 +359,7 @@ public class Trinity extends ArmorAbility {
 
 			ArrayList<Item> options = new ArrayList<>();
 			for (Class<?> cls : discoveredClasses){
-				if (Weapon.Enchantment.class.isAssignableFrom(cls)){
+				if (Reflection.isAssignableFrom(Weapon.Enchantment.class, cls)){
 					MeleeWeapon w = new WornShortsword(){
 						@Override
 						public String name() {
@@ -373,7 +373,7 @@ public class Trinity extends ArmorAbility {
 					w.enchant((Weapon.Enchantment) Reflection.newInstance(cls));
 					w.cursedKnown = true;
 					options.add(w);
-				} else if (Armor.Glyph.class.isAssignableFrom(cls)) {
+				} else if (Reflection.isAssignableFrom(Armor.Glyph.class, cls)) {
 					Armor a = new ClothArmor(){
 						@Override
 						public String name() {
@@ -491,7 +491,7 @@ public class Trinity extends ArmorAbility {
 
 	public static String trinityItemUseText(Class<?> cls ){
 		float chargeUse = trinityChargeUsePerEffect(cls);
-		if (Weapon.Enchantment.class.isAssignableFrom(cls) || Armor.Glyph.class.isAssignableFrom(cls)) {
+		if (Reflection.isAssignableFrom(Weapon.Enchantment.class, cls) || Reflection.isAssignableFrom(Armor.Glyph.class, cls)) {
 			for (Class ench : Weapon.Enchantment.rare) {
 				if (ench.equals(cls)) {
 					return Messages.get(Trinity.class, "rare_ench_glyph_use", BodyForm.duration(), Messages.decimalFormat("#.##", chargeUse));
@@ -504,19 +504,19 @@ public class Trinity extends ArmorAbility {
 			}
 			return Messages.get(Trinity.class, "ench_glyph_use", BodyForm.duration(), Messages.decimalFormat("#.##", chargeUse));
 		}
-		if (MissileWeapon.class.isAssignableFrom(cls)){
+		if (Reflection.isAssignableFrom(MissileWeapon.class, cls)){
 			return Messages.get(Trinity.class, "thrown_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
-		if (Wand.class.isAssignableFrom(cls)){
+		if (Reflection.isAssignableFrom(Wand.class, cls)){
 			if (cls.equals(WandOfFireblast.class) || cls.equals(WandOfRegrowth.class)){
 				return Messages.get(Trinity.class, "wand_multi_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 			}
 			return Messages.get(Trinity.class, "wand_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
-		if (Ring.class.isAssignableFrom(cls)){
+		if (Reflection.isAssignableFrom(Ring.class, cls)){
 			return Messages.get(Trinity.class, "ring_use", SpiritForm.ringLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
-		if (Artifact.class.isAssignableFrom(cls)){
+		if (Reflection.isAssignableFrom(Artifact.class, cls)){
 			return Messages.get(Trinity.class, cls.getSimpleName() + "_use", SpiritForm.artifactLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
 		return "error!";
@@ -525,7 +525,7 @@ public class Trinity extends ArmorAbility {
 
 	public static float trinityChargeUsePerEffect(Class<?> cls){
 		float chargeUse = Dungeon.hero.armorAbility.chargeUse(Dungeon.hero);
-		if (Weapon.Enchantment.class.isAssignableFrom(cls) || Armor.Glyph.class.isAssignableFrom(cls)) {
+		if (Reflection.isAssignableFrom(Weapon.Enchantment.class, cls) || Reflection.isAssignableFrom(Armor.Glyph.class, cls)) {
 			for (Class ench : Weapon.Enchantment.rare) {
 				if (ench.equals(cls)) {
 					return 2*chargeUse; //50 charge
@@ -540,7 +540,7 @@ public class Trinity extends ArmorAbility {
 		if (cls.equals(WandOfFireblast.class) || cls.equals(WandOfRegrowth.class)){
 			return 2*chargeUse;
 		}
-		if (Artifact.class.isAssignableFrom(cls)){
+		if (Reflection.isAssignableFrom(Artifact.class, cls)){
 			if (cls.equals(DriedRose.class) || cls.equals(UnstableSpellbook.class) || cls.equals(SkeletonKey.class)){
 				return 2*chargeUse; //50 charge
 			}

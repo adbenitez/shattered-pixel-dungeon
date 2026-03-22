@@ -64,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Reflection;
 
 import java.util.HashMap;
 
@@ -116,7 +117,7 @@ public class AscensionChallenge extends Buff {
 		}
 
 		for (Class<?extends Mob> cls : modifiers.keySet()){
-			if (cls.isAssignableFrom(ch.getClass())){
+			if (Reflection.isAssignableFrom(cls, ch.getClass())){
 				return modifiers.get(cls);
 			}
 		}
@@ -181,7 +182,7 @@ public class AscensionChallenge extends Buff {
 
 		boolean found = false;
 		for (Class<?extends Mob> cls : modifiers.keySet()){
-			if (cls.isAssignableFrom(enemy.getClass())){
+			if (Reflection.isAssignableFrom(cls, enemy.getClass())){
 				found = true;
 				break;
 			}
@@ -231,7 +232,7 @@ public class AscensionChallenge extends Buff {
 			return 7; //half of 13, rounded up
 		} else {
 			for (Class<?extends Mob> cls : modifiers.keySet()){
-				if (cls.isAssignableFrom(m.getClass())){
+				if (Reflection.isAssignableFrom(cls, m.getClass())){
 					return Math.max(13, m.EXP); //same exp as an eye
 				}
 			}

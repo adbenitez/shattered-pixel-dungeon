@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Reflection;
 
 import java.util.HashSet;
 
@@ -89,7 +90,7 @@ public class RingOfElements extends Ring {
 		if (getBuffedBonus(target, Resistance.class) == 0) return 1f;
 		
 		for (Class c : RESISTS){
-			if (c.isAssignableFrom(effect)){
+			if (Reflection.isAssignableFrom(c, effect)){
 				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class));
 			}
 		}

@@ -62,6 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWea
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Recipe {
 	
@@ -100,7 +101,7 @@ public abstract class Recipe {
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			
-			int[] needed = inQuantity.clone();
+			int[] needed = Arrays.copyOf(inQuantity, inQuantity.length);
 			
 			for (Item ingredient : ingredients){
 				if (!ingredient.isIdentified()) return false;
@@ -129,7 +130,7 @@ public abstract class Recipe {
 		public Item brew(ArrayList<Item> ingredients) {
 			if (!testIngredients(ingredients)) return null;
 			
-			int[] needed = inQuantity.clone();
+			int[] needed = Arrays.copyOf(inQuantity, inQuantity.length);
 			
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {

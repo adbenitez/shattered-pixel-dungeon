@@ -60,5 +60,13 @@ public class Reflection {
 	public static Class forNameUnhandled( String name ) throws Exception {
 		return ClassReflection.forName( name );
 	}
+
+	public static boolean isAssignableFrom( Class parent, Class child ){
+		return ClassReflection.isAssignableFrom( parent, child );
+	}
+
+	public static boolean isInstance( Class cls, Object obj ){
+		return ClassReflection.isInstance( cls, obj );
+	}
 	
 }

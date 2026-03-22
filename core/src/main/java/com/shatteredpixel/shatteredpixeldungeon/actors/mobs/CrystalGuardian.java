@@ -42,6 +42,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 public class CrystalGuardian extends Mob{
 
@@ -175,7 +176,7 @@ public class CrystalGuardian extends Mob{
 		if (recovering){
 			//while recovering, immune to chars that aren't the hero or spire
 			// this is sort of a hack to prevent allies from attacking downed guardians
-			return super.isInvulnerable(effect) || (Char.class.isAssignableFrom(effect) && !Hero.class.isAssignableFrom(effect) && !CrystalSpire.class.isAssignableFrom(effect));
+			return super.isInvulnerable(effect) || (Reflection.isAssignableFrom(Char.class, effect) && !Reflection.isAssignableFrom(Hero.class, effect) && !Reflection.isAssignableFrom(CrystalSpire.class, effect));
 		}
 		return super.isInvulnerable(effect);
 	}

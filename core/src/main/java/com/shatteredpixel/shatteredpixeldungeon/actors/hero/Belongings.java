@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -256,7 +257,7 @@ public class Belongings implements Iterable<Item> {
 		boolean lostInvent = lostInventory();
 
 		for (Item item : this) {
-			if (itemClass.isInstance( item )) {
+			if (Reflection.isInstance( itemClass, item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					return (T) item;
 				}
@@ -272,7 +273,7 @@ public class Belongings implements Iterable<Item> {
 		boolean lostInvent = lostInventory();
 
 		for (Item item : this) {
-			if (itemClass.isInstance( item )) {
+			if (Reflection.isInstance( itemClass, item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					result.add((T) item);
 				}

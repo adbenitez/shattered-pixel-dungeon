@@ -156,6 +156,7 @@ import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1144,7 +1145,7 @@ public abstract class Char extends Actor {
 	public synchronized <T extends Buff> HashSet<T> buffs( Class<T> c ) {
 		HashSet<T> filtered = new HashSet<>();
 		for (Buff b : buffs) {
-			if (c.isInstance( b )) {
+			if (Reflection.isInstance( c, b )) {
 				filtered.add( (T)b );
 			}
 		}
@@ -1314,7 +1315,7 @@ public abstract class Char extends Actor {
 		
 		float result = 1f;
 		for (Class c : resists){
-			if (c.isAssignableFrom(effect)){
+			if (Reflection.isAssignableFrom(c, effect)){
 				result *= 0.5f;
 			}
 		}
@@ -1336,7 +1337,7 @@ public abstract class Char extends Actor {
 		}
 		
 		for (Class c : immunes){
-			if (c.isAssignableFrom(effect)){
+			if (Reflection.isAssignableFrom(c, effect)){
 				return true;
 			}
 		}

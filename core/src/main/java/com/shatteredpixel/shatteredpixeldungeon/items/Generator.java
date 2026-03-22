@@ -303,13 +303,13 @@ public class Generator {
 				ArrayList<Class> subOrdering = subOrderings.get(values()[i].superClass);
 				if (subOrdering != null){
 					for (int j=0; j < subOrdering.size(); j++){
-						if (subOrdering.get(j).isInstance(item)){
+						if (Reflection.isInstance(subOrdering.get(j), item)){
 							catResult = i;
 							subResult = j;
 						}
 					}
 				} else {
-					if (values()[i].superClass.isInstance(item)) {
+					if (Reflection.isInstance(values()[i].superClass, item)) {
 						catResult = i;
 						subResult = 0;
 					}
@@ -661,7 +661,7 @@ public class Generator {
 
 	public static void undoDrop(Class cls){
 		for (Category cat : Category.values()){
-			if (cls.isAssignableFrom(cat.superClass)){
+			if (Reflection.isAssignableFrom(cls, cat.superClass)){
 				if (cat.defaultProbs == null) continue;
 				for (int i = 0; i < cat.classes.length; i++){
 					if (cls == cat.classes[i]){

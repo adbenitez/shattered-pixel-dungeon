@@ -56,6 +56,7 @@ import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
+import com.watabou.utils.ThreadCompat;
 
 import java.nio.Buffer;
 import java.util.HashSet;
@@ -831,7 +832,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				ch.onMotionComplete();
 
 				GameScene.sortMobSprites();
-				notifyAll();
+				ThreadCompat.objectNotifyAll(this);
 			}
 
 		}

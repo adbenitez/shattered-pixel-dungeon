@@ -30,9 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.watabou.noosa.Image;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class News {
 
@@ -123,11 +121,13 @@ public class News {
 	}
 
 	public static String parseArticleDate(NewsArticle article){
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.setTime(article.date);
-		return cal.get(Calendar.YEAR)
-				+ "-" + String.format("%02d", cal.get(Calendar.MONTH)+1)
-				+ "-" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+		Date d = article.date;
+		int year  = d.getYear() + 1900;
+		int month = d.getMonth() + 1; // 1-indexed
+		int day   = d.getDate();
+		return year
+				+ "-" + (month < 10 ? "0" + month : Integer.toString(month))
+				+ "-" + (day   < 10 ? "0" + day   : Integer.toString(day));
 	}
 
 }

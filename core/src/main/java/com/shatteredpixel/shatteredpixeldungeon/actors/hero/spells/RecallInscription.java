@@ -104,19 +104,19 @@ public class RecallInscription extends ClericSpell {
 	public float chargeUse(Hero hero) {
 		if (hero.buff(UsedItemTracker.class) != null){
 			Class<? extends Item> item = hero.buff(UsedItemTracker.class).item;
-			if (ExoticScroll.class.isAssignableFrom(item)){
+			if (Reflection.isAssignableFrom(ExoticScroll.class, item)){
 				if (item == ScrollOfMetamorphosis.class || item == ScrollOfEnchantment.class){
 					return 8;
 				} else {
 					return 4;
 				}
-			} else if (Scroll.class.isAssignableFrom(item)){
+			} else if (Reflection.isAssignableFrom(Scroll.class, item)){
 				if (item == ScrollOfTransmutation.class){
 					return 6;
 				} else {
 					return 3;
 				}
-			} else if (Runestone.class.isAssignableFrom(item)){
+			} else if (Reflection.isAssignableFrom(Runestone.class, item)){
 				if (item == StoneOfAugmentation.class || item == StoneOfEnchantment.class){
 					return 4;
 				} else {

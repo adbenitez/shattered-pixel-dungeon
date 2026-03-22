@@ -31,6 +31,7 @@ import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.SparseArray;
+import com.watabou.utils.ThreadCompat;
 
 import java.util.HashSet;
 
@@ -277,7 +278,7 @@ public abstract class Actor implements Bundlable {
 					try {
 						synchronized (((Char)acting).sprite) {
 							if (((Char)acting).sprite.isMoving) {
-								((Char) acting).sprite.wait();
+								ThreadCompat.objectWait(((Char) acting).sprite);
 							}
 						}
 					} catch (InterruptedException e) {

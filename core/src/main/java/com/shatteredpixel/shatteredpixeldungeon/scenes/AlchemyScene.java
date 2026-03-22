@@ -80,6 +80,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.RectF;
+import com.watabou.utils.Reflection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -597,7 +598,7 @@ public class AlchemyScene extends PixelScene {
 		ArrayList<T> filtered = new ArrayList<>();
 		for (int i = 0; i < inputs.length; i++){
 			Item item = inputs[i].item();
-			if (item != null && itemClass.isInstance(item)){
+			if (item != null && Reflection.isInstance(itemClass, item)){
 				filtered.add((T)item);
 			}
 		}

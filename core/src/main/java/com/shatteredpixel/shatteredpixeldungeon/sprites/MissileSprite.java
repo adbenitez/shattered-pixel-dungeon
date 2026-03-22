@@ -44,6 +44,7 @@ import com.watabou.noosa.tweeners.PosTweener;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
+import com.watabou.utils.Reflection;
 
 import java.util.HashMap;
 
@@ -135,7 +136,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		
 		angularSpeed = DEFAULT_ANGULAR_SPEED;
 		for (Class<?extends Item> cls : ANGULAR_SPEEDS.keySet()){
-			if (cls.isAssignableFrom(item.getClass())){
+			if (Reflection.isAssignableFrom(cls, item.getClass())){
 				angularSpeed = ANGULAR_SPEEDS.get(cls);
 				break;
 			}

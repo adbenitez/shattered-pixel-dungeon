@@ -752,7 +752,7 @@ public class WndJournal extends WndTabbed {
 			String title = "";
 			String desc = "";
 
-			if (Item.class.isAssignableFrom(itemClass)) {
+			if (Reflection.isAssignableFrom(Item.class, itemClass)) {
 
 				Item item = (Item) Reflection.newInstance(itemClass);
 
@@ -811,7 +811,7 @@ public class WndJournal extends WndTabbed {
 					}
 				}
 
-			} else if (Weapon.Enchantment.class.isAssignableFrom(itemClass)){
+			} else if (Reflection.isAssignableFrom(Weapon.Enchantment.class, itemClass)){
 
 				Weapon.Enchantment ench = (Weapon.Enchantment) Reflection.newInstance(itemClass);
 
@@ -827,7 +827,7 @@ public class WndJournal extends WndTabbed {
 					desc += "\n\n" + Messages.get(ench, "discover_hint");
 				}
 
-			} else if (Armor.Glyph.class.isAssignableFrom(itemClass)){
+			} else if (Reflection.isAssignableFrom(Armor.Glyph.class, itemClass)){
 
 				Armor.Glyph glyph = (Armor.Glyph) Reflection.newInstance(itemClass);
 
@@ -883,7 +883,7 @@ public class WndJournal extends WndTabbed {
 			String title = null;
 			String desc = null;
 
-			if (Mob.class.isAssignableFrom(entityCls)) {
+			if (Reflection.isAssignableFrom(Mob.class, entityCls)) {
 
 				mob = (Mob) Reflection.newInstance(entityCls);
 
@@ -940,7 +940,7 @@ public class WndJournal extends WndTabbed {
 					}
 					icon.frame(frame);
 				}
-			} else if (Trap.class.isAssignableFrom(entityCls)){
+			} else if (Reflection.isAssignableFrom(Trap.class, entityCls)){
 
 				Trap trap = (Trap) Reflection.newInstance(entityCls);
 				icon = TerrainFeaturesTilemap.getTrapVisual(trap);
@@ -958,7 +958,7 @@ public class WndJournal extends WndTabbed {
 					desc += "\n\n" + Messages.get(trap, "discover_hint");
 				}
 
-			} else if (Plant.class.isAssignableFrom(entityCls)){
+			} else if (Reflection.isAssignableFrom(Plant.class, entityCls)){
 
 				Plant plant = (Plant) Reflection.newInstance(entityCls);
 				icon = TerrainFeaturesTilemap.getPlantVisual(plant);

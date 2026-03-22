@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.utils.Reflection;
 
 public class MagicImmune extends FlavourBuff {
 
@@ -45,7 +46,7 @@ public class MagicImmune extends FlavourBuff {
 		if (super.attachTo(target)){
 			for (Buff b : target.buffs()){
 				for (Class immunity : immunities){
-					if (b.getClass().isAssignableFrom(immunity)){
+					if (Reflection.isAssignableFrom(b.getClass(), immunity)){
 						b.detach();
 						break;
 					}

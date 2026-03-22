@@ -172,15 +172,15 @@ public enum Music {
 			//don't play the next track if we're currently in the middle of a fade
 			if (fadeTotal == -1f) {
 				//we do this in a separate thread to avoid graphics hitching while the music is prepared
-				if (!DeviceCompat.isDesktop()) {
-					new Thread() {
+				//on desktop and WebGL (single-threaded), call directly instead
+				if (DeviceCompat.isAndroid() || DeviceCompat.isiOS()) {
+					new Thread(new Runnable() {
 						@Override
 						public void run() {
 							playNextTrack(music);
 						}
-					}.start();
+					}).start();
 				} else {
-					//don't use a separate thread on desktop, causes errors and makes no performance difference
 					playNextTrack(music);
 				}
 			}

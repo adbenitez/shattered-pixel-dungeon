@@ -85,7 +85,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
-
+import com.watabou.utils.Reflection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -711,7 +711,7 @@ public abstract class RegularLevel extends Level {
 
 	public Room room (Class<?extends Room> type){
 		for (Room r : rooms) {
-			if (type.isInstance(r)) {
+			if (Reflection.isInstance(type, r)) {
 				return r;
 			}
 		}

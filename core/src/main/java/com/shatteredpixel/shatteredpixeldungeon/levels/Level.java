@@ -817,7 +817,7 @@ public abstract class Level implements Bundlable {
 		}
 
 		for (Item item : itemsToSpawn){
-			if (match.isInstance(item)){
+			if (Reflection.isInstance(match, item)){
 				itemsToSpawn.remove( item );
 				return item;
 			}
