@@ -5,9 +5,10 @@ apply plugin: 'org.docstr.gwt'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
 
-// GWT super-source files override JDK/library classes for the GWT compiler only.
-// They must NOT be compiled by javac (Java 17 forbids overriding java.base packages).
-sourceSets.main.java.exclude '**/super/**'
+// GWT super-source files that redefine java.* packages conflict with Java 17's
+// module system and must NOT be compiled by javac.  Third-party stubs
+// (org.json, com.badlogic.freetype) do NOT conflict and must remain compiled.
+sourceSets.main.java.exclude '**/super/java/**'
 
 gwt {
     gwtVersion = '2.11.0'
