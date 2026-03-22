@@ -5,6 +5,10 @@ apply plugin: 'org.docstr.gwt'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
 
+// GWT super-source files override JDK/library classes for the GWT compiler only.
+// They must NOT be compiled by javac (Java 17 forbids overriding java.base packages).
+sourceSets.main.java.exclude '**/super/**'
+
 gwt {
     gwtVersion = '2.11.0'
     maxHeapSize = '2G'

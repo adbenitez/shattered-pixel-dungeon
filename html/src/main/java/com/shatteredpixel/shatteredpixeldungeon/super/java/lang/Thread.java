@@ -125,27 +125,6 @@ public class Thread {
 	}
 
 	// -----------------------------------------------------------------------
-	// Monitor methods (Object.wait/notify are absent from GWT's Object)
-	// These are added here so that Thread instances can be used as monitors.
-	// -----------------------------------------------------------------------
-
-	/** No-op in GWT (single-threaded – no blocking needed). */
-	public final void wait() throws InterruptedException {
-	}
-
-	/** No-op in GWT. */
-	public final void wait(long timeout) throws InterruptedException {
-	}
-
-	/** No-op in GWT. */
-	public final void notify() {
-	}
-
-	/** No-op in GWT. */
-	public final void notifyAll() {
-	}
-
-	// -----------------------------------------------------------------------
 	// UncaughtExceptionHandler interface
 	// -----------------------------------------------------------------------
 

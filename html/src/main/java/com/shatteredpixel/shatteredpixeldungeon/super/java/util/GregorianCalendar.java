@@ -9,7 +9,7 @@ package java.util;
 /** GWT stub for {@code java.util.GregorianCalendar}. */
 public class GregorianCalendar extends Calendar {
 
-	public GregorianCalendar() {
-		super();
-	}
+public GregorianCalendar() {
+super();
+}
 }

@@ -11,33 +11,37 @@ package java.lang;
 /** Minimal GWT-compatible stub for {@code java.lang.Runtime}. */
 public class Runtime {
 
-	private static final Runtime INSTANCE = new Runtime();
+private static final Runtime INSTANCE;
 
-	private Runtime() {
-	}
+static {
+INSTANCE = new Runtime();
+}
 
-	public static Runtime getRuntime() {
-		return INSTANCE;
-	}
+Runtime() {
+}
 
-	/** Always returns 1 in GWT (single-threaded environment). */
-	public int availableProcessors() {
-		return 1;
-	}
+public static Runtime getRuntime() {
+return INSTANCE;
+}
 
-	/** No-op in GWT. */
-	public void gc() {
-	}
+/** Always returns 1 in GWT (single-threaded environment). */
+public int availableProcessors() {
+return 1;
+}
 
-	public long totalMemory() {
-		return 0;
-	}
+/** No-op in GWT. */
+public void gc() {
+}
 
-	public long freeMemory() {
-		return 0;
-	}
+public long totalMemory() {
+return 0;
+}
 
-	public long maxMemory() {
-		return Long.MAX_VALUE;
-	}
+public long freeMemory() {
+return 0;
+}
+
+public long maxMemory() {
+return Long.MAX_VALUE;
+}
 }
