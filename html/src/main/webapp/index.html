@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Shattered Pixel Dungeon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            overflow: hidden;
+        }
+
+        /* libGDX GWT backend renders into a canvas inside #embed-html */
+        #embed-html {
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Simple loading indicator shown before GWT finishes bootstrapping */
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Loading Shattered Pixel Dungeon&hellip;</div>
+    <div id="embed-html"></div>
+
+    <!--
+        The GWT compiler outputs a bootstrap script named after the module's
+        rename-to value (shatteredpd).  This script detects the browser and
+        loads the appropriate compiled permutation.
+    -->
+    <script src="shatteredpd/shatteredpd.nocache.js"></script>
+
+    <script>
+        // Hide the loading indicator once the GWT module fires its onLoad.
+        window.addEventListener('load', function () {
+            var loading = document.getElementById('loading');
+            if (loading) loading.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

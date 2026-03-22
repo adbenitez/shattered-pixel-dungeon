@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>Shattered Pixel Dungeon</display-name>
+
+    <!--
+        The GWT compiler output and game assets are served as static files.
+        No dynamic servlets are needed for this application.
+    -->
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!--
+        Cache-control for the compiled GWT JavaScript.
+        Files whose names contain a hash (*.cache.*) are immutable and can be
+        cached indefinitely.  The no-cache bootstrap script must always be
+        re-validated.
+    -->
+    <mime-mapping>
+        <extension>wasm</extension>
+        <mime-type>application/wasm</mime-type>
+    </mime-mapping>
+
+</web-app>

@@ -1,0 +1,65 @@
+apply plugin: 'java-library'
+apply plugin: 'war'
+apply plugin: 'org.wisepersist.gwt'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
+
+project.webAppDirName = 'src/main/webapp'
+
+gwt {
+    gwtVersion = '2.10.0'
+    maxHeapSize = '2G'
+    minHeapSize = '256m'
+
+    src = files(file('src/main/java'))
+    modules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinition'
+    devModules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinitionSuperdev'
+
+    compiler {
+        strict = true
+        disableCastChecking = true
+    }
+
+    superDev {
+        noServer = true
+        port = 8080
+        launcherDir = project.file('src/main/webapp')
+        sessionId = 'preview'
+    }
+}
+
+task addSource {
+    doFirst {
+        gwt.src += files(project(':SPD-classes').sourceSets.main.java.srcDirs)
+        gwt.src += files(project(':core').sourceSets.main.java.srcDirs)
+        gwt.src += files(project(':services').sourceSets.main.java.srcDirs)
+    }
+}
+
+tasks.withType(JavaCompile) {
+    dependsOn addSource
+}
+
+// Copy core assets into the webapp so the war can serve them
+task copyAssets(type: Copy) {
+    from new File(project(':core').projectDir, '/src/main/assets')
+    into 'src/main/webapp'
+}
+war.dependsOn copyAssets
+
+dependencies {
+    implementation project(':core')
+    implementation project(':SPD-classes')
+    implementation project(':services')
+
+    // libGDX GWT backend and sources (GWT needs .java sources to compile to JS)
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+
+    // Controllers GWT backend and sources
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion:sources"
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distrib/dtd/module-2.0.dtd">
+<!--
+    Main GWT module for Shattered Pixel Dungeon HTML5 build.
+
+    rename-to controls the output directory name for the compiled JavaScript bundle.
+    The generated file will be at:  shatteredpd/shatteredpd.nocache.js
+-->
+<module rename-to="shatteredpd">
+
+    <!-- libGDX GWT backend (provides the WebGL renderer, audio, input, etc.) -->
+    <inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
+
+    <!-- libGDX controllers GWT backend -->
+    <inherits name='com.badlogicgames.controllers.Controllers' />
+
+    <!-- Watabou engine classes (SPD-classes module) -->
+    <inherits name='com.watabou.SPDClasses' />
+
+    <!-- Core game module -->
+    <inherits name='com.shatteredpixel.shatteredpixeldungeon.Core' />
+
+    <!-- Base service interfaces -->
+    <inherits name='com.shatteredpixel.shatteredpixeldungeon.services.Services' />
+
+    <!-- HTML launcher (entry point) and HTML platform support -->
+    <source path="html" />
+
+    <!-- HTML-specific service implementations (UpdateImpl, NewsImpl) -->
+    <source path="services" />
+
+    <!--
+        Super-source: GWT-compatible replacements for non-GWT-compatible
+        library classes (org.json, FreeTypeFontGenerator stub).
+        Files here are treated as if they were at the root of the source tree
+        and override classes from the regular classpath.
+    -->
+    <super-source path="super" />
+
+    <!-- GWT entry point -->
+    <entry-point class='com.shatteredpixel.shatteredpixeldungeon.html.HtmlLauncher' />
+
+    <!--
+        Path to the game assets directory, relative to the html module root.
+        These assets are served alongside the compiled JavaScript.
+    -->
+    <set-configuration-property name="gdx.assetpath" value="../core/src/main/assets" />
+
+    <!--
+        Tell libGDX's reflection emulation which packages contain Bundlable
+        game classes that need reflection support at runtime.
+    -->
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.watabou" />
+
+</module>
