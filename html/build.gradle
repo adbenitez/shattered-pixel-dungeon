@@ -5,8 +5,6 @@ apply plugin: 'org.docstr.gwt'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
 
-project.webAppDirName = 'src/main/webapp'
-
 gwt {
     gwtVersion = '2.10.0'
     maxHeapSize = '2G'
@@ -16,9 +14,9 @@ gwt {
 
     // Cross-project Java sources GWT needs to see as .java files (not just .class files)
     extraSourceDirs = files(
-        project(':SPD-classes').sourceSets.main.java.srcDirs,
-        project(':core').sourceSets.main.java.srcDirs,
-        project(':services').sourceSets.main.java.srcDirs
+        project(':SPD-classes').file('src/main/java'),
+        project(':core').file('src/main/java'),
+        project(':services').file('src/main/java')
     )
 
     compiler {
