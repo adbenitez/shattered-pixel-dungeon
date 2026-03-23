@@ -27,6 +27,7 @@ import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //A builder that creates only branches, very simple and very random
 public class BranchesBuilder extends RegularBuilder {
@@ -52,14 +53,14 @@ public class BranchesBuilder extends RegularBuilder {
 
 		//we place up to 2 or 3 main path rooms first so that levelgen has a starting point for branches
 		int mainBranchRooms = Math.max(Random.Int(2, 3), mainPathRooms.size());
-		float[] pathTunnels = pathTunnelChances.clone();
+		float[] pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 		for (int i = 1; i < mainBranchRooms; i++){
 			Room prev = entrance;
 			Room r = mainPathRooms.get(0);
 
 			int tunnels = Random.chances(pathTunnels);
 			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
+				pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 				tunnels = Random.chances(pathTunnels);
 			}
 			pathTunnels[tunnels]--;

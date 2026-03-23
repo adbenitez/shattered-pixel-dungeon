@@ -341,7 +341,7 @@ public class Generator {
 					PotionOfExperience.class};
 			POTION.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
 			POTION.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
-			POTION.probs = POTION.defaultProbs.clone();
+			POTION.probs = Arrays.copyOf(POTION.defaultProbs, POTION.defaultProbs.length);
 			
 			SEED.classes = new Class<?>[]{
 					Rotberry.Seed.class, //quest item
@@ -357,7 +357,7 @@ public class Generator {
 					Mageroyal.Seed.class,
 					Starflower.Seed.class};
 			SEED.defaultProbs = new float[]{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
-			SEED.probs = SEED.defaultProbs.clone();
+			SEED.probs = Arrays.copyOf(SEED.defaultProbs, SEED.defaultProbs.length);
 			
 			SCROLL.classes = new Class<?>[]{
 					ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()
@@ -375,7 +375,7 @@ public class Generator {
 			};
 			SCROLL.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
 			SCROLL.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
-			SCROLL.probs = SCROLL.defaultProbs.clone();
+			SCROLL.probs = Arrays.copyOf(SCROLL.defaultProbs, SCROLL.defaultProbs.length);
 			
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
@@ -392,7 +392,7 @@ public class Generator {
 					StoneOfAugmentation.class  //1 is sold in each shop
 			};
 			STONE.defaultProbs = new float[]{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0 };
-			STONE.probs = STONE.defaultProbs.clone();
+			STONE.probs = Arrays.copyOf(STONE.defaultProbs, STONE.defaultProbs.length);
 
 			WAND.classes = new Class<?>[]{
 					WandOfMagicMissile.class,
@@ -409,7 +409,7 @@ public class Generator {
 					WandOfCorruption.class,
 					WandOfRegrowth.class };
 			WAND.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
-			WAND.probs = WAND.defaultProbs.clone();
+			WAND.probs = Arrays.copyOf(WAND.defaultProbs, WAND.defaultProbs.length);
 			
 			//see generator.randomWeapon
 			WEAPON.classes = new Class<?>[]{};
@@ -424,7 +424,7 @@ public class Generator {
 					Cudgel.class,
 			};
 			WEP_T1.defaultProbs = new float[]{ 2, 0, 2, 2, 2, 2 };
-			WEP_T1.probs = WEP_T1.defaultProbs.clone();
+			WEP_T1.probs = Arrays.copyOf(WEP_T1.defaultProbs, WEP_T1.defaultProbs.length);
 			
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
@@ -436,7 +436,7 @@ public class Generator {
 					Pickaxe.class
 			};
 			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 0 };
-			WEP_T2.probs = WEP_T2.defaultProbs.clone();
+			WEP_T2.probs = Arrays.copyOf(WEP_T2.defaultProbs, WEP_T2.defaultProbs.length);
 			
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,
@@ -447,7 +447,7 @@ public class Generator {
 					Whip.class
 			};
 			WEP_T3.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2 };
-			WEP_T3.probs = WEP_T1.defaultProbs.clone();
+			WEP_T3.probs = Arrays.copyOf(WEP_T1.defaultProbs, WEP_T1.defaultProbs.length);
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
@@ -459,7 +459,7 @@ public class Generator {
 					Katana.class
 			};
 			WEP_T4.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
-			WEP_T4.probs = WEP_T4.defaultProbs.clone();
+			WEP_T4.probs = Arrays.copyOf(WEP_T4.defaultProbs, WEP_T4.defaultProbs.length);
 			
 			WEP_T5.classes = new Class<?>[]{
 					Greatsword.class,
@@ -471,7 +471,7 @@ public class Generator {
 					WarScythe.class
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
-			WEP_T5.probs = WEP_T5.defaultProbs.clone();
+			WEP_T5.probs = Arrays.copyOf(WEP_T5.defaultProbs, WEP_T5.defaultProbs.length);
 			
 			//see Generator.randomArmor
 			ARMOR.classes = new Class<?>[]{
@@ -500,7 +500,7 @@ public class Generator {
 					Dart.class
 			};
 			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 0 };
-			MIS_T1.probs = MIS_T1.defaultProbs.clone();
+			MIS_T1.probs = Arrays.copyOf(MIS_T1.defaultProbs, MIS_T1.defaultProbs.length);
 			
 			MIS_T2.classes = new Class<?>[]{
 					FishingSpear.class,
@@ -508,7 +508,7 @@ public class Generator {
 					Shuriken.class
 			};
 			MIS_T2.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T2.probs = MIS_T2.defaultProbs.clone();
+			MIS_T2.probs = Arrays.copyOf(MIS_T2.defaultProbs, MIS_T2.defaultProbs.length);
 			
 			MIS_T3.classes = new Class<?>[]{
 					ThrowingSpear.class,
@@ -516,7 +516,7 @@ public class Generator {
 					Bolas.class
 			};
 			MIS_T3.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T3.probs = MIS_T3.defaultProbs.clone();
+			MIS_T3.probs = Arrays.copyOf(MIS_T3.defaultProbs, MIS_T3.defaultProbs.length);
 			
 			MIS_T4.classes = new Class<?>[]{
 					Javelin.class,
@@ -524,7 +524,7 @@ public class Generator {
 					HeavyBoomerang.class
 			};
 			MIS_T4.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T4.probs = MIS_T4.defaultProbs.clone();
+			MIS_T4.probs = Arrays.copyOf(MIS_T4.defaultProbs, MIS_T4.defaultProbs.length);
 			
 			MIS_T5.classes = new Class<?>[]{
 					Trident.class,
@@ -532,14 +532,14 @@ public class Generator {
 					ForceCube.class
 			};
 			MIS_T5.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T5.probs = MIS_T5.defaultProbs.clone();
+			MIS_T5.probs = Arrays.copyOf(MIS_T5.defaultProbs, MIS_T5.defaultProbs.length);
 			
 			FOOD.classes = new Class<?>[]{
 					Food.class,
 					Pasty.class,
 					MysteryMeat.class };
 			FOOD.defaultProbs = new float[]{ 4, 1, 0 };
-			FOOD.probs = FOOD.defaultProbs.clone();
+			FOOD.probs = Arrays.copyOf(FOOD.defaultProbs, FOOD.defaultProbs.length);
 			
 			RING.classes = new Class<?>[]{
 					RingOfAccuracy.class,
@@ -555,7 +555,7 @@ public class Generator {
 					RingOfTenacity.class,
 					RingOfWealth.class};
 			RING.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
-			RING.probs = RING.defaultProbs.clone();
+			RING.probs = Arrays.copyOf(RING.defaultProbs, RING.defaultProbs.length);
 			
 			ARTIFACT.classes = new Class<?>[]{
 					AlchemistsToolkit.class,
@@ -573,7 +573,7 @@ public class Generator {
 					UnstableSpellbook.class
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 };
-			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
+			ARTIFACT.probs = Arrays.copyOf(ARTIFACT.defaultProbs, ARTIFACT.defaultProbs.length);
 
 			//Trinkets are unique like artifacts, but unlike them you can only have one at once
 			//So we don't need the same enforcement of uniqueness
@@ -597,7 +597,7 @@ public class Generator {
 					CrackedSpyglass.class
 			};
 			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-			TRINKET.probs = TRINKET.defaultProbs.clone();
+			TRINKET.probs = Arrays.copyOf(TRINKET.defaultProbs, TRINKET.defaultProbs.length);
 
 			for (Category cat : Category.values()){
 				if (cat.defaultProbs2 != null){
@@ -646,9 +646,9 @@ public class Generator {
 		if (cat.defaultProbs != null) {
 			if (cat.defaultProbs2 != null){
 				cat.using2ndProbs = !cat.using2ndProbs;
-				cat.probs = cat.using2ndProbs ? cat.defaultProbs2.clone() : cat.defaultProbs.clone();
+				cat.probs = cat.using2ndProbs ? Arrays.copyOf(cat.defaultProbs2, cat.defaultProbs2.length) : Arrays.copyOf(cat.defaultProbs, cat.defaultProbs.length);
 			} else {
-				cat.probs = cat.defaultProbs.clone();
+				cat.probs = Arrays.copyOf(cat.defaultProbs, cat.defaultProbs.length);
 			}
 		}
 	}

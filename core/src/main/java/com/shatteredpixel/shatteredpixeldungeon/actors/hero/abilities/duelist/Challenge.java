@@ -111,7 +111,7 @@ public class Challenge extends ArmorAbility {
 			if (c != hero) passable[c.pos] = false;
 		}
 		PathFinder.buildDistanceMap(targetCh.pos, passable);
-		int[] reachable = PathFinder.distance.clone();
+		int[] reachable = Arrays.copyOf(PathFinder.distance, PathFinder.distance.length);
 
 		int blinkpos = hero.pos;
 		if (hero.hasTalent(Talent.CLOSE_THE_GAP) && !hero.rooted){

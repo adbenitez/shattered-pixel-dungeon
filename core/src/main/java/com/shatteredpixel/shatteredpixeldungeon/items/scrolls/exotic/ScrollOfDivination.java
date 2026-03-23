@@ -42,6 +42,7 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Arrays;
 
 public class ScrollOfDivination extends ExoticScroll {
 	
@@ -67,12 +68,12 @@ public class ScrollOfDivination extends ExoticScroll {
 		int left = 4;
 		
 		float[] baseProbs = new float[]{3, 3, 3};
-		float[] probs = baseProbs.clone();
+		float[] probs = Arrays.copyOf(baseProbs, baseProbs.length);
 		
 		while (left > 0 && total > 0) {
 			switch (Random.chances(probs)) {
 				default:
-					probs = baseProbs.clone();
+					probs = Arrays.copyOf(baseProbs, baseProbs.length);
 					continue;
 				case 0:
 					if (potions.isEmpty()) {

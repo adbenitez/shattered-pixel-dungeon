@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.messages;
 
 import java.util.Locale;
+import java.util.Arrays;
 
 public enum Languages {
 	ENGLISH("english",      "en", Status.O_COMPLETE, null, null),
@@ -87,12 +88,12 @@ public enum Languages {
 
 	public String[] reviewers() {
 		if (reviewers == null) return new String[]{};
-		else return reviewers.clone();
+		else return Arrays.copyOf(reviewers, reviewers.length);
 	}
 
 	public String[] translators() {
 		if (translators == null) return new String[]{};
-		else return translators.clone();
+		else return Arrays.copyOf(translators, translators.length);
 	}
 
 	public static Languages matchLocale(Locale locale){

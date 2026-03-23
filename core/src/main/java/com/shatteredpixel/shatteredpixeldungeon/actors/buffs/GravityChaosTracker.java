@@ -37,6 +37,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.ThreadCompat;
 
 import java.util.ArrayList;
 
@@ -77,7 +78,7 @@ public class GravityChaosTracker extends Buff {
 			try {
 				synchronized (ch.sprite) {
 					if (ch.sprite.isMoving) {
-						ch.sprite.wait();
+						ThreadCompat.objectWait(ch.sprite);
 					}
 				}
 			} catch (InterruptedException e) {

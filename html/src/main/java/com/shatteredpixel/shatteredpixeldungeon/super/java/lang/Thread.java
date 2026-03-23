@@ -35,6 +35,18 @@ public class Thread {
 		this.name = name;
 	}
 
+	public Thread(Runnable target) {
+		this.name   = "Thread";
+		this.target = target;
+	}
+
+	public Thread(Runnable target, String name) {
+		this.name   = name;
+		this.target = target;
+	}
+
+	private Runnable target;
+
 	// -----------------------------------------------------------------------
 	// Static methods
 	// -----------------------------------------------------------------------
@@ -69,12 +81,32 @@ public class Thread {
 
 	/** Entry point for anonymous Thread subclasses.  No-op by default. */
 	public void run() {
-		// subclasses override this
+		if (target != null) target.run();
 	}
 
 	/** No-op in GWT: starts nothing.  Overrides must define run(). */
 	public void start() {
 		// no-op – GWT cannot start real threads
+	}
+
+	// -----------------------------------------------------------------------
+	// Monitor methods – no-ops in GWT (single-threaded)
+	// -----------------------------------------------------------------------
+
+	/** No-op in GWT. */
+	public final void wait() throws InterruptedException {
+	}
+
+	/** No-op in GWT. */
+	public final void wait(long timeout) throws InterruptedException {
+	}
+
+	/** No-op in GWT. */
+	public final void notify() {
+	}
+
+	/** No-op in GWT. */
+	public final void notifyAll() {
 	}
 
 	public boolean isAlive() {

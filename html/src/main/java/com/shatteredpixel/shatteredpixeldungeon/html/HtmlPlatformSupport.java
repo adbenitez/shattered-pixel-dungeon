@@ -31,7 +31,6 @@ import com.watabou.noosa.Game;
 import com.watabou.utils.PlatformSupport;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -247,36 +246,38 @@ public class HtmlPlatformSupport extends PlatformSupport {
     // Text splitting (same logic as DesktopPlatformSupport)
     // -----------------------------------------------------------------------
 
-    private static final Matcher asianMatcher = Pattern.compile(
+    // Stored as strings so we can use String.split() – GWT's Pattern does not
+    // expose Pattern.split(String) and Matcher does not have reset(String).
+    private static final Pattern asianPattern = Pattern.compile(
             "\\p{InHangul_Syllables}|" +
             "\\p{InCJK_Unified_Ideographs}|\\p{InCJK_Symbols_and_Punctuation}|" +
             "\\p{InHalfwidth_and_Fullwidth_Forms}|" +
-            "\\p{InHiragana}|\\p{InKatakana}").matcher("");
+            "\\p{InHiragana}|\\p{InKatakana}");
 
-    private boolean isAsianText(String text) {
-        return text != null && asianMatcher.reset(text).find();
-    }
-
-    private final Pattern regularSplitter = Pattern.compile(
+    private static final String regularSplitterRegex =
             "(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
             "(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
             "(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
             "(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
-            "(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})");
+            "(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})";
 
-    private final Pattern regularSplitterMultiline = Pattern.compile(
+    private static final String regularSplitterMultilineRegex =
             "(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
             "(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
             "(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
             "(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
-            "(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})");
+            "(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})";
+
+    private boolean isAsianText(String text) {
+        return text != null && asianPattern.matcher(text).find();
+    }
 
     @Override
     public String[] splitforTextBlock(String text, boolean multiline) {
         if (multiline) {
-            return regularSplitterMultiline.split(text);
+            return text.split(regularSplitterMultilineRegex);
         } else {
-            return regularSplitter.split(text);
+            return text.split(regularSplitterRegex);
         }
     }
 }

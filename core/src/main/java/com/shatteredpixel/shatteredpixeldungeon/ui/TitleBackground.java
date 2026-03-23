@@ -32,6 +32,7 @@ import com.watabou.utils.Random;
 import com.watabou.utils.RectF;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //TODO still a couple of refinements here:
 // now that all assets have 2x layers there's a lot of copypasta, surely logic can be shared in more places
@@ -282,13 +283,13 @@ public class TitleBackground extends Component {
 	//*** Arch layer logic ***
 
 	private static final float[] INIT_ARCH_CHANCES = {5, 5, 2, 2, 2, 2};
-	private static float[] arch_chances = INIT_ARCH_CHANCES.clone();
+	private static float[] arch_chances = Arrays.copyOf(INIT_ARCH_CHANCES, INIT_ARCH_CHANCES.length);
 
 	public RectF getArchFrame(){
 
 		int tile = Random.chances(arch_chances);
 		if (tile == -1){
-			arch_chances = INIT_ARCH_CHANCES.clone();
+			arch_chances = Arrays.copyOf(INIT_ARCH_CHANCES, INIT_ARCH_CHANCES.length);
 			tile = Random.chances(arch_chances);
 		}
 		arch_chances[tile]--;
@@ -341,13 +342,13 @@ public class TitleBackground extends Component {
 	//*** Cluster layer logic ***
 
 	private static final float[] INIT_CLUSTER_CHANCES = {2, 2};
-	private static float[] cluster_chances = INIT_CLUSTER_CHANCES.clone();
+	private static float[] cluster_chances = Arrays.copyOf(INIT_CLUSTER_CHANCES, INIT_CLUSTER_CHANCES.length);
 
 	public RectF getClusterFrame(){
 
 		int tile = Random.chances(cluster_chances);
 		if (tile == -1){
-			cluster_chances = INIT_CLUSTER_CHANCES.clone();
+			cluster_chances = Arrays.copyOf(INIT_CLUSTER_CHANCES, INIT_CLUSTER_CHANCES.length);
 			tile = Random.chances(cluster_chances);
 		}
 		cluster_chances[tile]--;
@@ -468,7 +469,7 @@ public class TitleBackground extends Component {
 	//*** Mid layer (1 and 2) logic ***
 
 	private static final float[] INIT_MID_CHANCES = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-	private static float[] mid_chances = INIT_MID_CHANCES.clone();
+	private static float[] mid_chances = Arrays.copyOf(INIT_MID_CHANCES, INIT_MID_CHANCES.length);
 
 	private static ArrayList<Integer> lastMids = new ArrayList<>();
 
@@ -478,7 +479,7 @@ public class TitleBackground extends Component {
 		do {
 			tile = Random.chances(mid_chances);
 			if (tile == -1) {
-				mid_chances = INIT_MID_CHANCES.clone();
+				mid_chances = Arrays.copyOf(INIT_MID_CHANCES, INIT_MID_CHANCES.length);
 				tile = Random.chances(mid_chances);
 			}
 		} while (lastMids.contains(tile));
@@ -604,7 +605,7 @@ public class TitleBackground extends Component {
 	//*** Small front layer logic ***
 
 	private static final float[] INIT_SMALL_CHANCES = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-	private static float[] small_chances = INIT_SMALL_CHANCES.clone();
+	private static float[] small_chances = Arrays.copyOf(INIT_SMALL_CHANCES, INIT_SMALL_CHANCES.length);
 
 	private static ArrayList<Integer> lastSmalls = new ArrayList<>();
 
@@ -614,7 +615,7 @@ public class TitleBackground extends Component {
 		do {
 			tile = Random.chances(small_chances);
 			if (tile == -1) {
-				small_chances = INIT_SMALL_CHANCES.clone();
+				small_chances = Arrays.copyOf(INIT_SMALL_CHANCES, INIT_SMALL_CHANCES.length);
 				tile = Random.chances(small_chances);
 			}
 		} while (lastSmalls.contains(tile));

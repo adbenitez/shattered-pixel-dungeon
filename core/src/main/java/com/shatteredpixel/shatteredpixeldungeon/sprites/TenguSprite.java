@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
+import com.watabou.utils.ThreadCompat;
 
 public class TenguSprite extends MobSprite {
 	
@@ -60,7 +61,7 @@ public class TenguSprite extends MobSprite {
 		if (isMoving && anim != run){
 			synchronized (this){
 				isMoving = false;
-				notifyAll();
+				ThreadCompat.objectNotifyAll(this);
 			}
 		}
 		super.play(anim);
@@ -118,7 +119,7 @@ public class TenguSprite extends MobSprite {
 				isMoving = false;
 				idle();
 
-				notifyAll();
+				ThreadCompat.objectNotifyAll(this);
 			}
 		} else {
 			super.onComplete( anim );

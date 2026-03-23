@@ -39,9 +39,6 @@ import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.PlatformSupport;
 import com.watabou.utils.Reflection;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 public class Game implements ApplicationListener {
 
 	public static Game instance;
@@ -287,20 +284,20 @@ public class Game implements ApplicationListener {
 			instance.logException(tr);
 		} else {
 			//fallback if error happened in initialization
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			tr.printStackTrace(pw);
-			pw.flush();
-			System.err.println(sw.toString());
+			System.err.println(stackTraceToString(tr));
 		}
 	}
 	
 	protected void logException( Throwable tr ){
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		tr.printStackTrace(pw);
-		pw.flush();
-		Gdx.app.error("GAME", sw.toString());
+		Gdx.app.error("GAME", stackTraceToString(tr));
+	}
+
+	private static String stackTraceToString( Throwable tr ) {
+		StringBuilder sb = new StringBuilder(tr.toString());
+		for (StackTraceElement e : tr.getStackTrace()) {
+			sb.append("\n\tat ").append(e);
+		}
+		return sb.toString();
 	}
 	
 	public static void runOnRenderThread(Callback c){

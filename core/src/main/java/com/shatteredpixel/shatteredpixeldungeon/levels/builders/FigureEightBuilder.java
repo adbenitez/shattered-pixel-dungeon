@@ -27,6 +27,7 @@ import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FigureEightBuilder extends RegularBuilder {
 	
@@ -101,7 +102,7 @@ public class FigureEightBuilder extends RegularBuilder {
 		int roomsOnFirstLoop = mainPathRooms.size()/2;
 		if (mainPathRooms.size() % 2 == 1) roomsOnFirstLoop += Random.Int(2);
 
-		ArrayList<Room> roomsToLoop = (ArrayList<Room>) mainPathRooms.clone();
+		ArrayList<Room> roomsToLoop = (ArrayList<Room>) Arrays.copyOf(mainPathRooms, mainPathRooms.length);
 
 		ArrayList<Room> firstLoopTemp = new ArrayList<>();
 		firstLoopTemp.add(landmarkRoom);
@@ -110,7 +111,7 @@ public class FigureEightBuilder extends RegularBuilder {
 		}
 		firstLoopTemp.add((firstLoopTemp.size()+1)/2, entrance);
 
-		float[] pathTunnels = pathTunnelChances.clone();
+		float[] pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 
 		firstLoop = new ArrayList<>();
 		for (Room r : firstLoopTemp){
@@ -118,7 +119,7 @@ public class FigureEightBuilder extends RegularBuilder {
 
 			int tunnels = Random.chances(pathTunnels);
 			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
+				pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 				tunnels = Random.chances(pathTunnels);
 			}
 			pathTunnels[tunnels]--;
@@ -138,7 +139,7 @@ public class FigureEightBuilder extends RegularBuilder {
 
 			int tunnels = Random.chances(pathTunnels);
 			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
+				pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 				tunnels = Random.chances(pathTunnels);
 			}
 			pathTunnels[tunnels]--;

@@ -49,7 +49,7 @@ public abstract class SecretRoom extends SpecialRoom {
 	
 	public static void initForRun(){
 		
-		float[] regionChances = baseRegionSecrets.clone();
+		float[] regionChances = Arrays.copyOf(baseRegionSecrets, baseRegionSecrets.length);
 		
 		for (int i = 0; i < regionSecretsThisRun.length; i++){
 			regionSecretsThisRun[i] = (int)regionChances[i];

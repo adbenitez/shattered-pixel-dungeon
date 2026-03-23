@@ -24,6 +24,8 @@ package com.shatteredpixel.shatteredpixeldungeon.mechanics;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.watabou.utils.BArray;
 
+import java.util.Arrays;
+
 //based on: http://www.roguebasin.com/index.php?title=FOV_using_recursive_shadowcasting
 public final class ShadowCaster {
 
@@ -88,7 +90,7 @@ public final class ShadowCaster {
 			//at a visibility distance of 2 we fill in the corners of vision
 			// as otherwise this vision range disproportionately punishes diagonal movement,
 			// even though removing corners is technically correct
-			roundingAtDist = rounding[distance].clone();
+			roundingAtDist = Arrays.copyOf(rounding[distance], rounding[distance].length);
 			roundingAtDist[2] = 2;
 		} else {
 			roundingAtDist = rounding[distance];

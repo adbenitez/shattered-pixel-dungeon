@@ -31,6 +31,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Arrays;
 
 //Introduces the concept of a main path, and branches
 // with tunnels padding rooms placed in them
@@ -151,7 +152,7 @@ public abstract class RegularBuilder extends Builder {
 		Room curr;
 		ArrayList<Room> connectingRoomsThisBranch = new ArrayList<>();
 		int failedBranchAttempts = 0;
-		float[] connectionChances = connChances.clone();
+		float[] connectionChances = Arrays.copyOf(connChances, connChances.length);
 		while (i < roomsToBranch.size()){
 
 			if (failedBranchAttempts > 100){
@@ -168,7 +169,7 @@ public abstract class RegularBuilder extends Builder {
 			
 			int connectingRooms = Random.chances(connectionChances);
 			if (connectingRooms == -1){
-				connectionChances = connChances.clone();
+				connectionChances = Arrays.copyOf(connChances, connChances.length);
 				connectingRooms = Random.chances(connectionChances);
 			}
 			connectionChances[connectingRooms]--;

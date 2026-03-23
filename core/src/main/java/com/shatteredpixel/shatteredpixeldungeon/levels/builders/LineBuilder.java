@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.connection.Connecti
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //A simple builder which utilizes a line as its core feature.
 public class LineBuilder extends RegularBuilder {
@@ -54,13 +55,13 @@ public class LineBuilder extends RegularBuilder {
 		
 		Room prev = entrance;
 
-		float[] pathTunnels = pathTunnelChances.clone();
+		float[] pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 		for (int i = 1; i < mainPathRooms.size(); i++){
 			Room r = mainPathRooms.get(i);
 
 			int tunnels = Random.chances(pathTunnels);
 			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
+				pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 				tunnels = Random.chances(pathTunnels);
 			}
 			pathTunnels[tunnels]--;

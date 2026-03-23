@@ -89,7 +89,7 @@ public enum Rankings {
 		Pattern p = Pattern.compile("\\d+\\.\\d+\\.\\d+");
 		Matcher m = p.matcher(ShatteredPixelDungeon.version);
 		if (m.find()) {
-			rec.version = "v" + m.group();
+			rec.version = "v" + m.group(0);
 		} else {
 			rec.version = "";
 		}

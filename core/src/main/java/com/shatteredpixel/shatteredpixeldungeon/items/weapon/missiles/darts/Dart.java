@@ -44,6 +44,7 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Dart extends MissileWeapon {
 
@@ -187,7 +188,7 @@ public class Dart extends MissileWeapon {
 		if (chargedShotPos != -1 && bow != null && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null) {
 			PathFinder.buildDistanceMap(chargedShotPos, Dungeon.level.passable, 3);
 			//necessary to clone as some on-hit effects use Pathfinder
-			int[] distance = PathFinder.distance.clone();
+			int[] distance = Arrays.copyOf(PathFinder.distance, PathFinder.distance.length);
 			for (Char ch : Actor.chars()){
 				if (ch == target){
 					Actor.add(new Actor() {

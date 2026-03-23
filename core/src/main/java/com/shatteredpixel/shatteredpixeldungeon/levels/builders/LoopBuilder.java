@@ -27,6 +27,7 @@ import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //A builder with one core loop as its primary element
 public class LoopBuilder extends RegularBuilder {
@@ -87,13 +88,13 @@ public class LoopBuilder extends RegularBuilder {
 		if (exit != null) mainPathRooms.add((mainPathRooms.size()+1)/2, exit);
 
 		ArrayList<Room> loop = new ArrayList<>();
-		float[] pathTunnels = pathTunnelChances.clone();
+		float[] pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 		for (Room r : mainPathRooms){
 			loop.add(r);
 			
 			int tunnels = Random.chances(pathTunnels);
 			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
+				pathTunnels = Arrays.copyOf(pathTunnelChances, pathTunnelChances.length);
 				tunnels = Random.chances(pathTunnels);
 			}
 			pathTunnels[tunnels]--;

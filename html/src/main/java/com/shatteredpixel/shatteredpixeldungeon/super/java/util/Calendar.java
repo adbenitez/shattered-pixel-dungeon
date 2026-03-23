@@ -16,6 +16,7 @@ public static final int MONTH        = 2;
 public static final int DAY_OF_MONTH = 5;
 public static final int DAY_OF_YEAR  = 6;
 public static final int DAY_OF_WEEK  = 7;
+public static final int HOUR_OF_DAY  = 11;
 
 // Month constants (0-indexed, same as java.util.Date)
 public static final int JANUARY   = 0;
@@ -64,6 +65,8 @@ case DAY_OF_WEEK:
 return d.getDay() + 1; // Calendar is 1-indexed (1 = Sunday)
 case DAY_OF_YEAR:
 return computeDayOfYear(d);
+case HOUR_OF_DAY:
+return d.getHours(); // 0-23
 default:
 return 0;
 }
