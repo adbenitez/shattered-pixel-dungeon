@@ -49,19 +49,30 @@
         Tell libGDX's reflection emulation which packages contain Bundlable
         game classes that need reflection support at runtime.
 
-        Narrow watabou to just 'utils' (the only sub-package with Bundlable
-        implementations); the rendering/input packages don't need reflection.
-
-        Exclude large SPD sub-packages that contain only rendering/UI classes
-        and have no Bundlable implementations.  This keeps the generated
-        IReflectionCache2Generated class well under the 65536 constant-pool
+        Using explicit sub-package includes instead of the broad top-level
+        package avoids pulling in rendering/UI packages (sprites, scenes, ui,
+        windows, effects) which have no Bundlable implementations and push the
+        generated IReflectionCache2Generated class over the 65536 constant-pool
         limit imposed by the JVM class file format.
+
+        Packages included here are only those that contain classes implementing
+        or extending Bundlable (directly or through the Actor/Item/Room/Trap
+        class hierarchies):
+          actors   (255 classes) – Actor, Blob, Buff, Char, Hero, Mob subclasses
+          items    (358 classes) – Item and all item-type subclasses
+          levels   (238 classes) – Level, Room, Trap subclasses
+          plants    (14 classes) – Plant subclasses
+          tiles     (10 classes) – CustomTilemap subclasses
+          journal    (5 classes) – Notes.Record
+          watabou.utils (23)     – Bundle/Bundlable themselves
+        Total ≈ 903 classes, well under the ~1260-class threshold.
     -->
-    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon" />
-    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.sprites" />
-    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.scenes" />
-    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.ui" />
-    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.windows" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.actors" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.items" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.levels" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.plants" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.tiles" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon.journal" />
     <extend-configuration-property name="gdx.reflect.include" value="com.watabou.utils" />
 
 </module>
