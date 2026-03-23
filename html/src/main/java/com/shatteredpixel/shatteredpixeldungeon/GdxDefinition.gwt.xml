@@ -48,8 +48,20 @@
     <!--
         Tell libGDX's reflection emulation which packages contain Bundlable
         game classes that need reflection support at runtime.
+
+        Narrow watabou to just 'utils' (the only sub-package with Bundlable
+        implementations); the rendering/input packages don't need reflection.
+
+        Exclude large SPD sub-packages that contain only rendering/UI classes
+        and have no Bundlable implementations.  This keeps the generated
+        IReflectionCache2Generated class well under the 65536 constant-pool
+        limit imposed by the JVM class file format.
     -->
     <extend-configuration-property name="gdx.reflect.include" value="com.shatteredpixel.shatteredpixeldungeon" />
-    <extend-configuration-property name="gdx.reflect.include" value="com.watabou" />
+    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.sprites" />
+    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.scenes" />
+    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.ui" />
+    <extend-configuration-property name="gdx.reflect.exclude" value="com.shatteredpixel.shatteredpixeldungeon.windows" />
+    <extend-configuration-property name="gdx.reflect.include" value="com.watabou.utils" />
 
 </module>
