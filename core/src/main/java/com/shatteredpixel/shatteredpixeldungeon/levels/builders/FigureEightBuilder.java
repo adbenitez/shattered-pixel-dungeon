@@ -102,7 +102,7 @@ public class FigureEightBuilder extends RegularBuilder {
 		int roomsOnFirstLoop = mainPathRooms.size()/2;
 		if (mainPathRooms.size() % 2 == 1) roomsOnFirstLoop += Random.Int(2);
 
-		ArrayList<Room> roomsToLoop = (ArrayList<Room>) Arrays.copyOf(mainPathRooms, mainPathRooms.length);
+		ArrayList<Room> roomsToLoop = new ArrayList<>(mainPathRooms);
 
 		ArrayList<Room> firstLoopTemp = new ArrayList<>();
 		firstLoopTemp.add(landmarkRoom);

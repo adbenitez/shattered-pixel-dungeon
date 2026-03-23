@@ -52,6 +52,8 @@ import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 
+import java.util.Arrays;
+
 public class Challenge extends ArmorAbility {
 
 	{
