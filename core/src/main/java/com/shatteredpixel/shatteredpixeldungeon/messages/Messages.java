@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.IllegalFormatException;
 import java.util.Locale;
 
 /*
@@ -165,12 +164,83 @@ public class Messages {
 	 */
 
 	public static String format( String format, Object...args ) {
-		try {
-			return String.format(format, args);
-		} catch (IllegalFormatException e) {
-			ShatteredPixelDungeon.reportException( new Exception("formatting error for the string: " + format, e) );
-			return format;
+		// GWT-compatible printf-style formatter (String.format is not available in GWT).
+		StringBuilder sb = new StringBuilder();
+		int argIdx = 0;
+		int i = 0;
+		while (i < format.length()) {
+			char c = format.charAt(i);
+			if (c != '%') { sb.append(c); i++; continue; }
+			i++;
+			if (i >= format.length()) { sb.append('%'); break; }
+			// flags
+			boolean flagPlus = false;
+			while (i < format.length()) {
+				char f = format.charAt(i);
+				if (f == '+') { flagPlus = true; i++; }
+				else if (f == '-' || f == ' ' || f == '0' || f == '#' || f == '(') { i++; }
+				else break;
+			}
+			// width
+			while (i < format.length() && format.charAt(i) >= '0' && format.charAt(i) <= '9') i++;
+			// precision
+			int precision = -1;
+			if (i < format.length() && format.charAt(i) == '.') {
+				i++; precision = 0;
+				while (i < format.length() && format.charAt(i) >= '0' && format.charAt(i) <= '9') {
+					precision = precision * 10 + (format.charAt(i) - '0'); i++;
+				}
+			}
+			if (i >= format.length()) break;
+			char spec = format.charAt(i++);
+			if (spec == '%') { sb.append('%'); continue; }
+			if (spec == 'n') { sb.append('\n'); continue; }
+			if (argIdx >= args.length) continue;
+			Object arg = args[argIdx++];
+			if (arg == null) { sb.append("null"); continue; }
+			if (spec == 'd' || spec == 'i') {
+				long val = ((Number) arg).longValue();
+				if (flagPlus && val >= 0) sb.append('+');
+				sb.append(val);
+			} else if (spec == 'f') {
+				double val = ((Number) arg).doubleValue();
+				if (flagPlus && val >= 0) sb.append('+');
+				sb.append(formatFixedDouble(val, precision >= 0 ? precision : 6));
+			} else if (spec == 's') {
+				sb.append(arg.toString());
+			} else if (spec == 'S') {
+				sb.append(arg.toString().toUpperCase());
+			} else if (spec == 'x') {
+				sb.append(Long.toHexString(((Number) arg).longValue()));
+			} else if (spec == 'X') {
+				sb.append(Long.toHexString(((Number) arg).longValue()).toUpperCase());
+			} else if (spec == 'b' || spec == 'B') {
+				sb.append(Boolean.TRUE.equals(arg));
+			} else {
+				sb.append(arg);
+			}
 		}
+		return sb.toString();
+	}
+
+	private static String formatFixedDouble(double val, int precision) {
+		boolean neg = val < 0;
+		if (neg) val = -val;
+		double scale = 1;
+		for (int k = 0; k < precision; k++) scale *= 10;
+		long rounded = Math.round(val * scale);
+		long ip = rounded / (long) scale;
+		long fp = rounded % (long) scale;
+		StringBuilder sb = new StringBuilder();
+		if (neg) sb.append('-');
+		sb.append(ip);
+		if (precision > 0) {
+			sb.append('.');
+			String fpStr = Long.toString(fp);
+			for (int p = fpStr.length(); p < precision; p++) sb.append('0');
+			sb.append(fpStr);
+		}
+		return sb.toString();
 	}
 
 	private static HashMap<String, DecimalFormat> formatters;

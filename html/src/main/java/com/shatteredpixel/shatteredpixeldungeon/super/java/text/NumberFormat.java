@@ -37,19 +37,14 @@ public abstract class NumberFormat {
 
         @Override
         public String format(long number) {
-            return formatLong(number);
+            // JSNI cannot safely handle long; convert to double first.
+            return formatDouble((double) number);
         }
 
         @Override
         public String format(double number) {
             return formatDouble(number);
         }
-
-        private static native String formatLong(long n) /*-{
-            // JavaScript numbers are 64-bit doubles; whole numbers up to 2^53
-            // are represented exactly, which covers all score values.
-            return n.toLocaleString();
-        }-*/;
 
         private static native String formatDouble(double n) /*-{
             return n.toLocaleString();
