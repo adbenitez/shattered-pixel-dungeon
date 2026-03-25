@@ -54,6 +54,10 @@ public class HtmlLauncher extends GwtApplication {
 
     @Override
     public ApplicationListener createApplicationListener() {
+        // Populate the manual class registry used by the GWT Reflection
+        // super-source (bypasses libGDX's IReflectionCache2Generated).
+        ClassRegistry.registerAll();
+
         // Version info is not available at build time in the HTML build.
         Game.version = "HTML";
         Game.versionCode = 0;
