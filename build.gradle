@@ -2,9 +2,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'org.docstr.gwt:org.docstr.gwt.gradle.plugin:2.2.9'
     }
 }
 
@@ -32,6 +34,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
         maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
     }
 

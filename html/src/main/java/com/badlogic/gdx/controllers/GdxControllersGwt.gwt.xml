@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://www.gwtproject.org/doctype/2.0/gwt-module.dtd">
+<!--
+  Helper GWT module so that com.badlogic.gdx.controllers.** is included
+  in the client-side compilation.  GWT stubs for these classes live in
+  html/super/com/badlogic/gdx/controllers/ and are activated by the
+  <super-source> declaration in GdxDefinition.gwt.xml.
+-->
+<module>
+    <source path=""/>
+</module>

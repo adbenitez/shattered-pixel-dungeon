@@ -1,0 +1,70 @@
+apply plugin: 'war'
+apply plugin: 'org.docstr.gwt'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
+
+gwt {
+    gwtVersion = '2.11.0'
+    maxHeapSize = '2G'
+
+    modules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinition'
+    devModules 'com.shatteredpixel.shatteredpixeldungeon.GdxDefinitionSuperdev'
+
+    compiler {
+        strict = true
+        disableCastChecking = true
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = [
+                'src/main/java',
+                '../core/src/main/java',
+                '../SPD-classes/src/main/java',
+                '../services/src/main/java'
+            ]
+        }
+        resources {
+            srcDirs = ['src/main/webapp']
+        }
+    }
+}
+
+// Add the super-source directory to the GWT compile classpath so GWT can
+// find the super-source stubs.  The <super-source> declaration in the GWT
+// module XML tells GWT to use those files in preference to the originals.
+afterEvaluate {
+    tasks.matching { t ->
+        t.name == 'compileGwt' || t.name == 'draftCompileGwt'
+    }.configureEach { t ->
+        if (t instanceof JavaExec) {
+            t.classpath = files(t.classpath, file('super'))
+        }
+    }
+}
+
+// Copy core assets into the war so the GWT app can serve them
+war {
+    from project(':core').file('src/main/assets')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
+
+    //noinspection GradleDependency , later JSON versions cause crashes on old versions of android
+    implementation "org.json:json:20170516"
+}

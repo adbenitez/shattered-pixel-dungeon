@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://www.gwtproject.org/doctype/2.0/gwt-module.dtd">
+<module rename-to="html">
+
+    <!-- Inherit the GDX GWT backend (includes emulation of libGDX core classes) -->
+    <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt"/>
+
+    <!--
+        Pull in com.watabou.** packages from :SPD-classes.
+        WataboClasses.gwt.xml lives in html/src/main/java/com/watabou/ and
+        declares <source path=""/>, which makes GWT search all Gradle source
+        roots for com.watabou.* files (including SPD-classes/src/main/java).
+    -->
+    <inherits name="com.watabou.WataboClasses"/>
+
+    <!--
+        Pull in com.badlogic.gdx.controllers.** so that Game.java (which
+        imports Controllers) compiles.  GWT stubs for the controllers classes
+        live in html/super/ and are activated by the <super-source> below.
+    -->
+    <inherits name="com.badlogic.gdx.controllers.GdxControllersGwt"/>
+
+    <!-- Entry point -->
+    <entry-point class="com.shatteredpixel.shatteredpixeldungeon.HtmlLauncher"/>
+
+    <!--
+        Compile com.shatteredpixel.shatteredpixeldungeon.** (the package that
+        contains this module file).  GWT searches all source roots, so it picks
+        up both html/src/main/java and core/src/main/java as well as the
+        services sub-package.
+    -->
+    <source path=""/>
+
+    <!--
+        Super-source: GWT stubs that replace GWT-incompatible classes.
+        Path resolves to html/super/ relative to this module file:
+          6 levels up from com/shatteredpixel/shatteredpixeldungeon/ → html/
+          then into super/
+    -->
+    <super-source path="../../../../../../super"/>
+
+    <!-- Tell the GWT devmode server where to find game assets -->
+    <set-configuration-property name="gdx.assetpath" value="../core/src/main/assets"/>
+
+</module>

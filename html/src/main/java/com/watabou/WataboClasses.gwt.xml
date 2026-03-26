@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
+        "http://www.gwtproject.org/doctype/2.0/gwt-module.dtd">
+<!--
+  Helper GWT module for com.watabou.** packages (from :SPD-classes).
+  When GWT processes <source path="" /> here it searches all source roots
+  configured by the Gradle build, which includes
+  ../SPD-classes/src/main/java – so the actual .java files are found.
+-->
+<module>
+    <source path=""/>
+</module>
