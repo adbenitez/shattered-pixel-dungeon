@@ -25,6 +25,8 @@ package com.watabou.utils;
  * GWT super-source stub for Reflection.
  * All methods return null/false to avoid ClassReflection and prevent
  * IReflectionCache2Generated constant-pool overflow in GWT compilation.
+ * Also provides isAssignableFrom() and isInstance() using getSuperclass() since
+ * GWT's java.lang.Class does not include these methods.
  */
 public class Reflection {
 
@@ -50,5 +52,29 @@ public class Reflection {
 
 	public static Class forNameUnhandled(String name) throws Exception {
 		throw new Exception("Reflection not supported in HTML build");
+	}
+
+	/**
+	 * GWT-compatible implementation of Class.isAssignableFrom().
+	 * GWT's java.lang.Class does not include isAssignableFrom(), so we implement
+	 * it here using getSuperclass() traversal.
+	 */
+	public static boolean isAssignableFrom(Class<?> sup, Class<?> sub) {
+		if (sup == null || sub == null) return false;
+		if (sup == sub) return true;
+		Class<?> superClass = sub.getSuperclass();
+		while (superClass != null) {
+			if (superClass == sup) return true;
+			superClass = superClass.getSuperclass();
+		}
+		return false;
+	}
+
+	/**
+	 * GWT-compatible implementation of Class.isInstance().
+	 */
+	public static boolean isInstance(Class<?> cls, Object obj) {
+		if (obj == null) return false;
+		return isAssignableFrom(cls, obj.getClass());
 	}
 }

@@ -21,6 +21,9 @@
 
 package com.watabou.utils;
 
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,6 +34,18 @@ import java.util.ArrayList;
 public class FileUtils {
 
 	public static void setDefaultFileProperties(com.badlogic.gdx.Files.FileType type, String path) {
+	}
+
+	public static FileHandle getFileHandle(String name) {
+		return Gdx.files.internal(name);
+	}
+
+	public static FileHandle getFileHandle(Files.FileType type, String name) {
+		return Gdx.files.getFileHandle(name, type);
+	}
+
+	public static FileHandle getFileHandle(Files.FileType type, String basePath, String name) {
+		return Gdx.files.getFileHandle(basePath + name, type);
 	}
 
 	public static boolean cleanTempFiles() {
