@@ -65,6 +65,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion:sources"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
 
-    //noinspection GradleDependency , later JSON versions cause crashes on old versions of android
-    implementation "org.json:json:20170516"
+    // The HTML build is browser-only; no Android compatibility concern applies here.
+    // 20170516 had DoS/stack-overflow CVEs; 20231013 is the patched version.
+    implementation "org.json:json:20231013"
 }
