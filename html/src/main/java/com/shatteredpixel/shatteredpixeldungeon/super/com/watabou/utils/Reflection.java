@@ -20,134 +20,59 @@
  */
 
 /*
- * GWT super-source: replaces com.watabou.utils.Reflection for the HTML5 build.
+ * GWT super-source: no-op stub for com.watabou.utils.Reflection.
  *
- * The regular Reflection.java delegates every operation to libGDX's
- * ClassReflection, which relies on the generated IReflectionCache2Generated
- * class.  That class is a single Java class whose constant pool grows with
- * every reflected type; for this project it blows past the JVM 65 536-entry
- * limit and the GWT compilation fails.
+ * The regular Reflection.java delegates to libGDX's ClassReflection, which
+ * generates a huge IReflectionCache2Generated class that overflows the JVM
+ * 65 536-entry constant-pool limit for this project's class count.
  *
- * This replacement uses a simple HashMap-based registry that is populated
- * at start-up by ClassRegistry.registerAll() (called from HtmlLauncher).
- * No reflection cache is generated at all, so the constant-pool limit is
- * never hit.  The gdx.reflect.include configuration properties in
- * GdxDefinition.gwt.xml are therefore not needed and have been removed.
+ * Since the HTML build does not use the Bundle serialization system for
+ * saving game state, we simply return safe null/false values for every
+ * operation.  Bundle.get() will return null (no objects restored from JSON),
+ * which means save-loading is disabled in the HTML build.
  *
- * The public API (method signatures) is identical to the original
- * Reflection.java so that every call site compiles without modification.
+ * No gdx.reflect.include entries are needed in GdxDefinition.gwt.xml.
  */
 
 package com.watabou.utils;
 
-import java.util.HashMap;
-
 /**
- * GWT super-source replacement for {@link com.watabou.utils.Reflection}.
- *
- * <p>Uses a manually-populated registry instead of libGDX's
- * {@code IReflectionCache2Generated} to avoid the JVM 65 536-entry
- * constant-pool limit.</p>
- *
- * <p>Call {@code ClassRegistry.registerAll()} once during start-up (before
- * any save Bundle is read) to populate the registry.</p>
+ * GWT no-op stub for {@link com.watabou.utils.Reflection}.
+ * All methods return safe defaults; the Bundle system will silently skip
+ * object restoration at runtime, which is acceptable for the HTML build.
  */
 public class Reflection {
 
-	/** Factory interface used to create new instances without reflection. */
-	public interface ClassFactory {
-		Object create();
-	}
-
-	private static final HashMap<String, Class<?>> classMap    = new HashMap<>();
-	private static final HashMap<Class<?>, ClassFactory> factories = new HashMap<>();
-
-	/**
-	 * Register a class for {@link #forName} look-up only (no factory).
-	 * Use this for abstract classes, interfaces, and enums.
-	 */
-	public static void registerClass(String name, Class<?> cls) {
-		classMap.put(name, cls);
-	}
-
-	/**
-	 * Register a class for both {@link #forName} look-up and
-	 * {@link #newInstance} instantiation.
-	 */
-	public static void registerClass(String name, Class<?> cls, ClassFactory factory) {
-		classMap.put(name, cls);
-		factories.put(cls, factory);
-	}
-
-	// -----------------------------------------------------------------------
-	// API matching com.watabou.utils.Reflection
-	// -----------------------------------------------------------------------
-
-	/**
-	 * Always returns {@code false}.
-	 *
-	 * <p>All registered Bundlable classes are either top-level or public
-	 * static inner classes; neither category requires an enclosing instance.
-	 * Bundle.java uses this to skip non-static inner classes, but since those
-	 * are never registered (and {@link #newInstance} returns {@code null} for
-	 * unregistered types), returning {@code false} here is safe.</p>
-	 */
-	public static boolean isMemberClass(Class cls) {
+	public static boolean isMemberClass( Class cls ) {
 		return false;
 	}
 
-	/** Not called when {@link #isMemberClass} returns {@code false}. */
-	public static boolean isStatic(Class cls) {
-		return false;
+	public static boolean isStatic( Class cls ) {
+		return true;
 	}
 
-	/**
-	 * Creates a new instance using the registered factory, or returns
-	 * {@code null} if no factory was registered for {@code cls}.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T newInstance(Class<T> cls) {
-		ClassFactory factory = factories.get(cls);
-		if (factory != null) {
-			return (T) factory.create();
-		}
+	public static <T> T newInstance( Class<T> cls ) {
 		return null;
 	}
 
-	/** Same as {@link #newInstance} but throws instead of returning null. */
-	@SuppressWarnings("unchecked")
-	public static <T> T newInstanceUnhandled(Class<T> cls) throws Exception {
-		T result = newInstance(cls);
-		if (result == null) {
-			throw new Exception("No factory registered for class: " + cls.getName());
-		}
-		return result;
+	public static <T> T newInstanceUnhandled( Class<T> cls ) throws Exception {
+		return null;
 	}
 
-	/**
-	 * Looks up a class by its binary name (as returned by
-	 * {@link Class#getName()}).  Returns {@code null} when not found.
-	 */
-	public static Class forName(String name) {
-		return classMap.get(name);
+	public static Class forName( String name ) {
+		return null;
 	}
 
-	/** Same as {@link #forName} but throws instead of returning null. */
-	public static Class forNameUnhandled(String name) throws Exception {
-		Class cls = forName(name);
-		if (cls == null) {
-			throw new Exception("Class not found in GWT registry: " + name);
-		}
-		return cls;
+	public static Class forNameUnhandled( String name ) throws Exception {
+		return null;
 	}
 
-	/** Delegates to {@link Class#isAssignableFrom}, which GWT emulates. */
-	public static boolean isAssignableFrom(Class parent, Class child) {
-		return parent.isAssignableFrom(child);
+	public static boolean isAssignableFrom( Class parent, Class child ) {
+		return parent.isAssignableFrom( child );
 	}
 
-	/** Delegates to {@link Class#isInstance}, which GWT emulates. */
-	public static boolean isInstance(Class cls, Object obj) {
-		return cls.isInstance(obj);
+	public static boolean isInstance( Class cls, Object obj ) {
+		return cls.isInstance( obj );
 	}
+
 }

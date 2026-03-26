@@ -46,18 +46,15 @@
     <set-configuration-property name="gdx.assetpath" value="../core/src/main/assets" />
 
     <!--
-        No gdx.reflect.include entries are needed here.
+        No gdx.reflect.include entries are needed.
 
-        The Reflection class is replaced by a GWT super-source
+        com.watabou.utils.Reflection is replaced by a GWT super-source stub
         (html/src/main/java/.../super/com/watabou/utils/Reflection.java) that
-        uses a manually-populated HashMap registry instead of libGDX's
-        IReflectionCache2Generated.  That generated class is a single Java
-        class whose constant pool grows with every reflected type; for this
-        project the ~1300 types (top-level + static inner Bundlable classes)
-        push it over the 65 536-entry JVM limit.
+        returns null/false for every operation.  libGDX's IReflectionCache2Generated
+        is never generated, so the JVM 65 536-entry constant-pool limit is never hit.
 
-        The registry is populated at start-up by ClassRegistry.registerAll()
-        (called from HtmlLauncher.createApplicationListener()).
+        The HTML build does not use the Bundle serialization system for saving
+        game state; a JavaScript/localStorage solution is used instead.
     -->
 
 </module>
