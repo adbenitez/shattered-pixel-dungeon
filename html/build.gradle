@@ -1,0 +1,38 @@
+plugins {
+    id 'org.docstr.gwt' version '2.2.9'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+java.sourceCompatibility = java.targetCompatibility = appJavaCompatibility
+
+gwt {
+    gwtVersion = '2.11.0'
+    modules = ['com.shatteredpixel.shatteredpixeldungeon.GdxDefinition']
+
+    maxHeapSize = '1G'
+    minHeapSize = '512M'
+
+    compiler {
+        strict = true
+        classMetadata = true
+    }
+}
+
+afterEvaluate {
+    gwt.extraSourceDirs.from(
+        files("${project(':SPD-classes').projectDir}/src/main/java"),
+        files("${project(':core').projectDir}/src/main/java"),
+        files("${project(':services').projectDir}/src/main/java")
+    )
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':SPD-classes')
+
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
+}
